@@ -90,14 +90,14 @@ GitHub Actions 只负责更新数据，不直接调用 Wrangler 或 Cloudflare A
 
 ### 1. 环境要求
 
-- Node.js 18+（已安装 npm）
+- Node.js 18+（已安装 pnpm）
 
 ### 2. 启动本地服务
 
 在仓库根目录执行：
 
 ```bash
-npx wrangler pages dev public --port 8788
+pnpm dev --port 8788
 ```
 
 ### 3. 本地访问地址

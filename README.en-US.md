@@ -92,14 +92,14 @@ You can preview the project locally, closely matching the online Cloudflare Page
 
 ### 1. Prerequisites
 
-- Node.js 18+ (with npm installed)
+- Node.js 18+ (with pnpm installed)
 
 ### 2. Start Local Server
 
 Run the following in the repository root directory:
 
 ```bash
-npx wrangler pages dev public --port 8788
+pnpm dev --port 8788
 ```
 
 ### 3. Local Access URLs

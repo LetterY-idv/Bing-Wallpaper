@@ -26,7 +26,7 @@ echo      [5] 自定义分辨率
 echo.
 echo  注： 
 echo      1. 20190510之前的壁纸只能下载1080P。 
-echo      2. 图片数据源json下载地址：https://github.com/Zhu-junwei/bing-wallpaper-archive
+echo      2. 图片数据源json下载地址：https://github.com/LetterY-idv/Bing-Wallpaper
 echo.
 set /p dpi=请输入你的选择，默认下载原图 [1-5]: 
 ::if "%dpi%"=="1"  
@@ -55,7 +55,7 @@ pause & exit
 if not exist %jsonFile% (
     echo 缺少图片数据源json%jsonFile%文件，尝试下载...
     echo.
-	curl -L -4 -o %jsonFile% "https://cdn.jsdelivr.net/gh/Zhu-junwei/bing-wallpaper-archive/Bing_zh-CN_all.json"
+	curl -L -4 -o %jsonFile% "https://cdn.jsdelivr.net/gh/LetterY-idv/Bing-Wallpaper/Bing_zh-CN_all.json"
     if not exist %jsonFile% (
         echo 下载失败，仍然无法找到 %jsonFile% 文件，无法继续操作。
         pause >nul

@@ -1,3 +1,7 @@
 .wrangler/
 .wrangler-dev.log
 .wrangler-dev.err.log
+node_modules/
+.dev.vars
+.env
+.env.*

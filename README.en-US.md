@@ -46,38 +46,45 @@ Note:
 
 ## ⚙️ Usage
 
-- Method 1: Download the [bing-wallpaper-downloader.bat](https://github.com/Zhu-junwei/bing-wallpaper-archive/releases/download/v1.3/bing-wallpaper-downloader.bat) script from the [releases](https://github.com/Zhu-junwei/bing-wallpaper-archive/releases/) page, run it, and follow the prompts to download images.
-- Method 2: Download the `bing-wallpaper-archive-20xx.zip` archive file from the [releases](https://github.com/Zhu-junwei/bing-wallpaper-archive/releases) page.
+- Method 1: Download the [bing-wallpaper-downloader.bat](https://github.com/LetterY-idv/Bing-Wallpaper/releases/download/v1.3/bing-wallpaper-downloader.bat) script from the [releases](https://github.com/LetterY-idv/Bing-Wallpaper/releases/) page, run it, and follow the prompts to download images.
+- Method 2: Download the `bing-wallpaper-archive-20xx.zip` archive file from the [releases](https://github.com/LetterY-idv/Bing-Wallpaper/releases) page.
 - Method 3: Build your own downloader based on the project's JSON data.
 
-## ☁️ Cloudflare Pages Deployment
+## ☁️ Automatic Deployment through Cloudflare Git Integration
 
-This project can be deployed directly to Cloudflare Pages, using the `functions/` directory as Pages Functions. [Demo Site](https://bw.900198.xyz)
+This project is deployed by connecting the GitHub repository in the Cloudflare dashboard. GitHub Actions does not run `wrangler deploy`, and no Cloudflare API token is required in GitHub. [Demo site](https://bw.lettery.cc.cd)
 
-### 1. Create a Pages Project
+### 1. Connect the repository
 
-- Navigate to Cloudflare Dashboard -> `Workers & Pages` -> `Create` -> `Pages`.
-- Select `Connect to Git`, link this repository, and choose the branch (usually `master`).
+- Open Cloudflare Dashboard -> `Workers & Pages` -> `Create` -> `Import a repository`.
+- Connect GitHub and select the `LetterY-idv/Bing-Wallpaper` repository.
+- Select `master` as the production branch.
 
-### 2. Build Configuration
+### 2. Build and deployment settings
 
-- `Framework preset`: `None`
-- `Build command`: Leave blank (no build step required)
-- `Build output directory`: `public`
-- `Root directory`: `/` (repository root)
+- `Root directory`: `/`
+- `Build command`: `pnpm install --frozen-lockfile`
+- `Deploy command`: use the default deployment configuration Cloudflare derives from `wrangler.jsonc`
+- Worker name: `bing-wallpaper`
 
-### 3. Post-Deployment Verification
+The repository's `wrangler.jsonc` defines the Worker entry point at `src/index.js`, the `public` static asset directory, and the API routes that run through the Worker first. Cloudflare reads this configuration when building the connected repository.
 
-- Homepage: `https://<your-domain>/`
-- API Documentation: `https://<your-domain>/api-doc/`
-- Latest JSON Entry: `https://<your-domain>/api/latest`
-- Latest N JSON Entries: `https://<your-domain>/api/latest/10`
-- Latest Image Direct Link: `https://<your-domain>/img/latest?res=hd`
+### 3. Automatic deployment flow
 
-### 4. Automatic Data Update Instructions
+1. The `update-bing.yml` GitHub Actions workflow updates the Bing dataset every day at 00:00 Beijing time.
+2. It synchronizes `Bing_zh-CN_all.json` to `public/Bing_zh-CN_all.json`.
+3. When data changes, the workflow commits and pushes the update to `master`.
+4. Cloudflare detects the repository commit and automatically builds and deploys it.
 
-- The GitHub Actions workflow `update-bing.yml` automatically updates data daily at 00:00 Beijing Time.
-- The workflow syncs `Bing_zh-CN_all.json` to `public/Bing_zh-CN_all.json` for Cloudflare Pages Functions to read.
+GitHub Actions only updates the dataset. It does not invoke Wrangler or the Cloudflare API. If deployment fails, review the build logs in the Cloudflare project.
+
+### 4. Post-deployment verification
+
+- Home page: `https://<your-domain>/`
+- API documentation: `https://<your-domain>/api-doc/`
+- Latest JSON record: `https://<your-domain>/api/latest`
+- Latest N JSON records: `https://<your-domain>/api/latest/10`
+- Latest image endpoint: `https://<your-domain>/img/latest?res=hd`
 
 ## 🧪 Local Preview (Cloudflare Pages)
 
@@ -109,30 +116,30 @@ To stop the server: `Ctrl + C`
 
 ```
 # Full dataset
-https://raw.githubusercontent.com/Zhu-junwei/bing-wallpaper-archive/master/Bing_zh-CN_all.json
+https://raw.githubusercontent.com/LetterY-idv/Bing-Wallpaper/master/Bing_zh-CN_all.json
 
 # Data for specific date
-https://raw.githubusercontent.com/Zhu-junwei/bing-wallpaper-archive/master/2025/12/20.json
+https://raw.githubusercontent.com/LetterY-idv/Bing-Wallpaper/master/2025/12/20.json
 # Data for specific month
-https://raw.githubusercontent.com/Zhu-junwei/bing-wallpaper-archive/master/2025/12/all.json
+https://raw.githubusercontent.com/LetterY-idv/Bing-Wallpaper/master/2025/12/all.json
 # Data for specific year
-https://raw.githubusercontent.com/Zhu-junwei/bing-wallpaper-archive/master/2025/all.json
+https://raw.githubusercontent.com/LetterY-idv/Bing-Wallpaper/master/2025/all.json
 ```
 
 **jsDelivr:**
 
 ```
 # Full dataset (CDN accelerated)
-https://cdn.jsdelivr.net/gh/Zhu-junwei/bing-wallpaper-archive/Bing_zh-CN_all.json
+https://cdn.jsdelivr.net/gh/LetterY-idv/Bing-Wallpaper/Bing_zh-CN_all.json
 # If CDN is not up-to-date, use the link below to purge/reset
-https://purge.jsdelivr.net/gh/Zhu-junwei/bing-wallpaper-archive/Bing_zh-CN_all.json
+https://purge.jsdelivr.net/gh/LetterY-idv/Bing-Wallpaper/Bing_zh-CN_all.json
 
 # Data for specific date (CDN accelerated)
-https://cdn.jsdelivr.net/gh/Zhu-junwei/bing-wallpaper-archive/2025/12/20.json
+https://cdn.jsdelivr.net/gh/LetterY-idv/Bing-Wallpaper/2025/12/20.json
 # Data for specific month (CDN accelerated)
-https://cdn.jsdelivr.net/gh/Zhu-junwei/bing-wallpaper-archive/2025/12/all.json
+https://cdn.jsdelivr.net/gh/LetterY-idv/Bing-Wallpaper/2025/12/all.json
 # Data for specific year (CDN accelerated)
-https://cdn.jsdelivr.net/gh/Zhu-junwei/bing-wallpaper-archive/2025/all.json
+https://cdn.jsdelivr.net/gh/LetterY-idv/Bing-Wallpaper/2025/all.json
 ```
 
 **Cloudflare API:**

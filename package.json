@@ -1,0 +1,23 @@
+{
+  "name": "bing-wallpaper",
+  "version": "1.0.0",
+  "description": "本项目归档 2016-03-05 至今的必应每日壁纸数据，并提供 Cloudflare Pages 网站、JSON API、图片直链接口和批量下载能力。",
+  "scripts": {
+    "dev": "wrangler dev",
+    "check": "wrangler deploy --dry-run"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LetterY-idv/Bing-Wallpaper.git"
+  },
+  "keywords": [],
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/LetterY-idv/Bing-Wallpaper/issues"
+  },
+  "homepage": "https://github.com/LetterY-idv/Bing-Wallpaper#readme",
+  "devDependencies": {
+    "wrangler": "^4.149.0"
+  },
+  "private": true
+}

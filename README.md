@@ -44,38 +44,45 @@
 
 ## ⚙️ 使用方式
 
-- 方式一：下载[release](https://github.com/Zhu-junwei/bing-wallpaper-archive/releases/)中的[bing-wallpaper-downloader.bat](https://github.com/Zhu-junwei/bing-wallpaper-archive/releases/download/v1.3/bing-wallpaper-downloader.bat)脚本运行后按照提示下载图片。
-- 方式二：下载[release](https://github.com/Zhu-junwei/bing-wallpaper-archive/releases)中的`bing-wallpaper-archive-20xx.zip`图片压缩包。
+- 方式一：下载[release](https://github.com/LetterY-idv/Bing-Wallpaper/releases/)中的[bing-wallpaper-downloader.bat](https://github.com/LetterY-idv/Bing-Wallpaper/releases/download/v1.3/bing-wallpaper-downloader.bat)脚本运行后按照提示下载图片。
+- 方式二：下载[release](https://github.com/LetterY-idv/Bing-Wallpaper/releases)中的`bing-wallpaper-archive-20xx.zip`图片压缩包。
 - 方式三：根据项目的json数据构建自己的下载程序
 
-## ☁️ Cloudflare Pages 部署
+## ☁️ Cloudflare Git 仓库自动部署
 
-本项目可直接部署到 Cloudflare Pages，并使用 `functions/` 作为 Pages Functions。[示例站点](https://bw.900198.xyz)
+本项目使用 Cloudflare 控制台连接 GitHub 仓库进行自动部署，不需要在 GitHub Actions 中执行 `wrangler deploy`，也不需要配置 Cloudflare API Token。[示例站点](https://bw.lettery.cc.cd)
 
-### 1. 创建 Pages 项目
+### 1. 连接仓库
 
-- 进入 Cloudflare 控制台 -> `Workers & Pages` -> `Create` -> `Pages`。
-- 选择 `Connect to Git`，绑定本仓库并选择分支（通常为 `master`）。
+- 进入 Cloudflare 控制台 -> `Workers & Pages` -> `Create` -> `Import a repository`。
+- 连接 GitHub，并选择 `LetterY-idv/Bing-Wallpaper` 仓库。
+- 生产分支选择 `master`。
 
-### 2. 构建配置
+### 2. 构建和部署配置
 
-- `Framework preset`：`None`
-- `Build command`：留空（无需构建）
-- `Build output directory`：`public`
-- `Root directory`：`/`（仓库根目录）
+- `Root directory`：`/`
+- `Build command`：`pnpm install --frozen-lockfile`
+- `Deploy command`：使用 Cloudflare 根据仓库中的 `wrangler.jsonc` 提供的默认部署配置
+- Worker 名称：`bing-wallpaper`
 
-### 3. 部署后验证
+仓库中的 `wrangler.jsonc` 定义 Worker 入口 `src/index.js`、静态资源目录 `public` 以及需要优先进入 Worker 的 API 路由。Cloudflare 从仓库构建时会自动读取该配置。
+
+### 3. 自动部署流程
+
+1. GitHub Actions 工作流 `update-bing.yml` 每日北京时间 `00:00` 更新必应数据。
+2. 工作流同步 `Bing_zh-CN_all.json` 到 `public/Bing_zh-CN_all.json`。
+3. 有数据变化时，工作流提交并推送到 `master`。
+4. Cloudflare 检测到仓库提交后自动构建并部署。
+
+GitHub Actions 只负责更新数据，不直接调用 Wrangler 或 Cloudflare API。Cloudflare 部署失败时，可直接在 Cloudflare 项目的构建日志中检查原因。
+
+### 4. 部署后验证
 
 - 首页：`https://<你的域名>/`
 - API 文档：`https://<你的域名>/api-doc/`
 - 最新一条 JSON：`https://<你的域名>/api/latest`
 - 最新 N 条 JSON：`https://<你的域名>/api/latest/10`
 - 最新图片直链：`https://<你的域名>/img/latest?res=hd`
-
-### 4. 数据自动更新说明
-
-- GitHub Actions 工作流 `update-bing.yml` 每日北京时间 `00:00` 自动更新数据。
-- 工作流会同步 `Bing_zh-CN_all.json` 到 `public/Bing_zh-CN_all.json`，用于 Cloudflare Pages Functions 读取。
 
 ## 🧪 本地预览（Cloudflare Pages）
 
@@ -107,30 +114,30 @@ npx wrangler pages dev public --port 8788
 
 ```
 # 全量数据
-https://raw.githubusercontent.com/Zhu-junwei/bing-wallpaper-archive/master/Bing_zh-CN_all.json
+https://raw.githubusercontent.com/LetterY-idv/Bing-Wallpaper/master/Bing_zh-CN_all.json
 
 # 指定日期数据
-https://raw.githubusercontent.com/Zhu-junwei/bing-wallpaper-archive/master/2025/12/20.json
+https://raw.githubusercontent.com/LetterY-idv/Bing-Wallpaper/master/2025/12/20.json
 # 指定月份数据
-https://raw.githubusercontent.com/Zhu-junwei/bing-wallpaper-archive/master/2025/12/all.json
+https://raw.githubusercontent.com/LetterY-idv/Bing-Wallpaper/master/2025/12/all.json
 # 指定年份数据
-https://raw.githubusercontent.com/Zhu-junwei/bing-wallpaper-archive/master/2025/all.json
+https://raw.githubusercontent.com/LetterY-idv/Bing-Wallpaper/master/2025/all.json
 ```
 
 **jsdelivr：**
 
 ```
 # 全量数据 cdn加速
-https://cdn.jsdelivr.net/gh/Zhu-junwei/bing-wallpaper-archive/Bing_zh-CN_all.json
+https://cdn.jsdelivr.net/gh/LetterY-idv/Bing-Wallpaper/Bing_zh-CN_all.json
 # 如果cdn不是最新数据，建议使用下面链接重置
-https://purge.jsdelivr.net/gh/Zhu-junwei/bing-wallpaper-archive/Bing_zh-CN_all.json
+https://purge.jsdelivr.net/gh/LetterY-idv/Bing-Wallpaper/Bing_zh-CN_all.json
 
 # 指定日期数据 cdn加速
-https://cdn.jsdelivr.net/gh/Zhu-junwei/bing-wallpaper-archive/2025/12/20.json
+https://cdn.jsdelivr.net/gh/LetterY-idv/Bing-Wallpaper/2025/12/20.json
 # 指定月份数据 cdn加速
-https://cdn.jsdelivr.net/gh/Zhu-junwei/bing-wallpaper-archive/2025/12/all.json
+https://cdn.jsdelivr.net/gh/LetterY-idv/Bing-Wallpaper/2025/12/all.json
 # 指定年份数据 cdn加速
-https://cdn.jsdelivr.net/gh/Zhu-junwei/bing-wallpaper-archive/2025/all.json
+https://cdn.jsdelivr.net/gh/LetterY-idv/Bing-Wallpaper/2025/all.json
 ```
 
 **CloudFlare API：**

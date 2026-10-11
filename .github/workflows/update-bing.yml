@@ -1,4 +1,4 @@
-name: Update Bing Wallpaper JSON
+name: Update Bing Wallpaper Data
 
 on:
   schedule:
@@ -23,7 +23,7 @@ jobs:
       - name: Run update script
         run: bash update_bing.sh
 
-      - name: Sync data for Cloudflare Pages
+      - name: Sync data for Cloudflare deployment
         run: |
           mkdir -p public
           cp Bing_zh-CN_all.json public/Bing_zh-CN_all.json
@@ -39,6 +39,8 @@ jobs:
             echo "has_changes=false" >> "$GITHUB_ENV"
           fi
 
+      # Pushing to the production branch triggers Cloudflare Git deployment.
+      # This workflow intentionally does not call wrangler deploy or the Cloudflare API.
       - name: Commit and push changes
         if: env.has_changes == 'true'
         run: |

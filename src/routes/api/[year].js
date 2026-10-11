@@ -1,4 +1,4 @@
-import { badRequest, isValidYear, serveFilteredImages } from "../../_lib/bing-api.js";
+import { badRequest, isValidYear, serveFilteredImages } from "../../lib/bing-api.js";
 
 export async function onRequest(context) {
   const { year } = context.params;

@@ -2,7 +2,7 @@
 
 # 📸 bing-wallpaper-archive
 
-This project archives Bing daily wallpaper data from 2016-03-05 to the present, and provides a Cloudflare Pages website, JSON API, direct image link interface, and batch download capabilities.
+This project archives Bing daily wallpaper data from 2016-03-05 to the present, and provides a Cloudflare Workers website, JSON API, direct image link interface, and batch download capabilities.
 
 Total images: **3809**
 
@@ -33,8 +33,8 @@ Note:
 📁 Project Root
 ├── 20**/                           # JSON data divided by day
 ├── Bing_zh-CN_all.json             # All archived Bing wallpaper JSON data
-├── functions/                      # Cloudflare Pages Functions (/api, /img)
-├── public/                         # Cloudflare Pages static site directory
+├── src/                            # Worker entry point, routes, and shared logic
+├── public/                         # Worker static asset directory
 │   ├── _headers                    # Response headers and cache policies
 │   ├── api-doc/                    # API documentation page
 │   └── Bing_zh-CN_all.json         # Public data copy for Functions to read
@@ -86,9 +86,9 @@ GitHub Actions only updates the dataset. It does not invoke Wrangler or the Clou
 - Latest N JSON records: `https://<your-domain>/api/latest/10`
 - Latest image endpoint: `https://<your-domain>/img/latest?res=hd`
 
-## 🧪 Local Preview (Cloudflare Pages)
+## 🧪 Local Preview (Cloudflare Workers)
 
-You can preview the project locally, closely matching the online Cloudflare Pages environment (including `functions/` routing).
+Use Wrangler to preview the Cloudflare Workers runtime locally, including Worker routes and static assets.
 
 ### 1. Prerequisites
 

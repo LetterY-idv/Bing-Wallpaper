@@ -1,23 +1,19 @@
 import {
   badRequest,
-  isValidDay,
   isValidMonth,
   isValidYear,
   serveFilteredImages,
-} from "../../../_lib/bing-api.js";
+} from "../../../../lib/bing-api.js";
 
 export async function onRequest(context) {
-  const { year, month, day } = context.params;
+  const { year, month } = context.params;
   if (!isValidYear(year)) {
     return badRequest("Invalid year format, expected YYYY.");
   }
   if (!isValidMonth(month)) {
     return badRequest("Invalid month format, expected MM.");
   }
-  if (!isValidDay(day)) {
-    return badRequest("Invalid day format, expected DD.");
-  }
 
-  const exact = `${year}${month}${day}`;
-  return serveFilteredImages(context, (enddate) => enddate === exact);
+  const prefix = `${year}${month}`;
+  return serveFilteredImages(context, (enddate) => enddate.startsWith(prefix));
 }

@@ -1,11 +1,11 @@
-import { loadImages } from "../_lib/bing-api.js";
+import { loadImages } from "../../lib/bing-api.js";
 import {
   buildBingTargetUrl,
   IMAGE_HEADERS,
   imageJsonError,
   proxyBingImage,
   withImageDateHeaders,
-} from "../_lib/img-api.js";
+} from "../../lib/img-api.js";
 
 function getLatestImage(images) {
   if (!Array.isArray(images) || images.length === 0) {

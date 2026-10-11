@@ -1,7 +1,7 @@
 {
   "name": "bing-wallpaper",
   "version": "1.0.0",
-  "description": "本项目归档 2016-03-05 至今的必应每日壁纸数据，并提供 Cloudflare Pages 网站、JSON API、图片直链接口和批量下载能力。",
+  "description": "本项目归档 2016-03-05 至今的必应每日壁纸数据，并提供 Cloudflare Workers 网站、JSON API、图片直链接口和批量下载能力。",
   "scripts": {
     "dev": "wrangler dev",
     "check": "wrangler deploy --dry-run"

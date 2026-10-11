@@ -1,5 +1,5 @@
-import { BASE_HEADERS, jsonResponse, loadImages } from "../../_lib/bing-api.js";
-import { parseRandomLimit, pickRandomItems } from "../../_lib/random-utils.js";
+import { BASE_HEADERS, jsonResponse, loadImages } from "../../../lib/bing-api.js";
+import { parseRandomLimit, pickRandomItems } from "../../../lib/random-utils.js";
 
 export async function onRequest(context) {
   if (context.request.method === "OPTIONS") {

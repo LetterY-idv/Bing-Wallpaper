@@ -4,7 +4,7 @@ import {
   isValidMonth,
   isValidYear,
   serveFilteredImages,
-} from "../../_lib/bing-api.js";
+} from "../../../../lib/bing-api.js";
 
 export async function onRequest(context) {
   const { year, month, day } = context.params;

@@ -1,4 +1,4 @@
-import { BASE_HEADERS, jsonResponse, loadImages } from "../../../_lib/bing-api.js";
+import { BASE_HEADERS, jsonResponse, loadImages } from "../../../../lib/bing-api.js";
 
 function normalizeDateKey(text) {
   if (typeof text !== "string") {

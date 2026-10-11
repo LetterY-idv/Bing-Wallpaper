@@ -3,14 +3,14 @@ import {
   isValidDay,
   isValidMonth,
   isValidYear,
-} from "../../../_lib/bing-api.js";
+} from "../../../../lib/bing-api.js";
 import {
   buildBingTargetUrl,
   IMAGE_HEADERS,
   imageJsonError,
   proxyBingImage,
   withImageDateHeaders,
-} from "../../../_lib/img-api.js";
+} from "../../../../lib/img-api.js";
 
 export async function onRequest(context) {
   if (context.request.method === "OPTIONS") {

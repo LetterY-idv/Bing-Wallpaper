@@ -1,5 +1,17 @@
-import { BASE_HEADERS, jsonResponse, loadImages } from "../_lib/bing-api.js";
-import { pickRandomItems } from "../_lib/random-utils.js";
+import { BASE_HEADERS, jsonResponse, loadImages } from "../../../lib/bing-api.js";
+
+const MAX_LIMIT = 3650;
+
+function parseLimit(text) {
+  if (!/^\d+$/.test(text || "")) {
+    return null;
+  }
+  const value = Number(text);
+  if (!Number.isInteger(value) || value <= 0) {
+    return null;
+  }
+  return Math.min(value, MAX_LIMIT);
+}
 
 export async function onRequest(context) {
   if (context.request.method === "OPTIONS") {
@@ -9,9 +21,14 @@ export async function onRequest(context) {
     return jsonResponse({ error: "Method not allowed" }, 405);
   }
 
+  const limit = parseLimit(context.params.limit);
+  if (!limit) {
+    return jsonResponse({ error: "Invalid limit, expected positive integer." }, 400);
+  }
+
   try {
     const images = await loadImages(context);
-    return jsonResponse({ images: pickRandomItems(images, 1) });
+    return jsonResponse({ images: images.slice(0, limit) });
   } catch (error) {
     return jsonResponse(
       {

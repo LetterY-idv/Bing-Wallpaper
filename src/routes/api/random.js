@@ -1,4 +1,5 @@
-import { BASE_HEADERS, jsonResponse, loadImages } from "./_lib/bing-api.js";
+import { BASE_HEADERS, jsonResponse, loadImages } from "../../lib/bing-api.js";
+import { pickRandomItems } from "../../lib/random-utils.js";
 
 export async function onRequest(context) {
   if (context.request.method === "OPTIONS") {
@@ -10,7 +11,7 @@ export async function onRequest(context) {
 
   try {
     const images = await loadImages(context);
-    return jsonResponse({ images });
+    return jsonResponse({ images: pickRandomItems(images, 1) });
   } catch (error) {
     return jsonResponse(
       {

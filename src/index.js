@@ -1,20 +1,20 @@
-import { onRequest as apiRoot } from "../functions/api.js";
-import { onRequest as apiLatest } from "../functions/api/latest.js";
-import { onRequest as apiLatestLimit } from "../functions/api/latest/[limit].js";
-import { onRequest as apiRandom } from "../functions/api/random.js";
-import { onRequest as apiRandomLimit } from "../functions/api/random/[limit].js";
-import { onRequest as apiRange } from "../functions/api/range/[start]/[end].js";
-import { onRequest as apiYear } from "../functions/api/[year].js";
-import { onRequest as apiYearMonth } from "../functions/api/[year]/[month].js";
-import { onRequest as apiYearMonthDay } from "../functions/api/[year]/[month]/[day].js";
-import { onRequest as apiYearAll } from "../functions/api/[year]/all.js";
-import { onRequest as apiYearMonthAll } from "../functions/api/[year]/[month]/all.js";
-import { onRequest as imgLatest } from "../functions/img/latest.js";
-import { onRequest as imgRandom } from "../functions/img/random.js";
-import { onRequest as imgDate } from "../functions/img/[year]/[month]/[day].js";
-import { onRequest as jsonYearAll } from "../functions/[year]/all.json.js";
-import { onRequest as jsonMonthAll } from "../functions/[year]/[month]/all.json.js";
-import { onRequest as jsonDate } from "../functions/[year]/[month]/[day].json.js";
+import { onRequest as apiRoot } from "./routes/api.js";
+import { onRequest as apiLatest } from "./routes/api/latest.js";
+import { onRequest as apiLatestLimit } from "./routes/api/latest/[limit].js";
+import { onRequest as apiRandom } from "./routes/api/random.js";
+import { onRequest as apiRandomLimit } from "./routes/api/random/[limit].js";
+import { onRequest as apiRange } from "./routes/api/range/[start]/[end].js";
+import { onRequest as apiYear } from "./routes/api/[year].js";
+import { onRequest as apiYearMonth } from "./routes/api/[year]/[month].js";
+import { onRequest as apiYearMonthDay } from "./routes/api/[year]/[month]/[day].js";
+import { onRequest as apiYearAll } from "./routes/api/[year]/all.js";
+import { onRequest as apiYearMonthAll } from "./routes/api/[year]/[month]/all.js";
+import { onRequest as imgLatest } from "./routes/img/latest.js";
+import { onRequest as imgRandom } from "./routes/img/random.js";
+import { onRequest as imgDate } from "./routes/img/[year]/[month]/[day].js";
+import { onRequest as jsonYearAll } from "./routes/[year]/all.json.js";
+import { onRequest as jsonMonthAll } from "./routes/[year]/[month]/all.json.js";
+import { onRequest as jsonDate } from "./routes/[year]/[month]/[day].json.js";
 
 const routes = [
   [/^\/api\/?$/, apiRoot, []],

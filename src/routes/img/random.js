@@ -1,12 +1,12 @@
-import { loadImages, UHD_CUTOFF_DATE } from "../_lib/bing-api.js";
-import { pickRandomItems } from "../_lib/random-utils.js";
+import { loadImages, UHD_CUTOFF_DATE } from "../../lib/bing-api.js";
+import { pickRandomItems } from "../../lib/random-utils.js";
 import {
   buildBingTargetUrl,
   IMAGE_HEADERS,
   imageJsonError,
   proxyBingImage,
   withImageDateHeaders,
-} from "../_lib/img-api.js";
+} from "../../lib/img-api.js";
 
 const RANDOM_IMAGE_CACHE_CONTROL =
   "public, max-age=180, s-maxage=300, stale-while-revalidate=600";

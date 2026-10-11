@@ -1,6 +1,6 @@
 # 📸 bing-wallpaper-archive
 
-本项目归档 2016-03-05 至今的必应每日壁纸数据，并提供 Cloudflare Pages 网站、JSON API、图片直链接口和批量下载能力。
+本项目归档 2016-03-05 至今的必应每日壁纸数据，并提供 Cloudflare Workers 网站、JSON API、图片直链接口和批量下载能力。
 
 总图片数：**3874**
 
@@ -31,8 +31,8 @@
 📁 项目根目录
 ├── 20**/                           # 每天划分的 JSON 数据
 ├── Bing_zh-CN_all.json             # 所有已归档的必应壁纸 JSON 数据
-├── functions/                      # Cloudflare Pages Functions（/api、/img）
-├── public/                         # Cloudflare Pages 静态站点目录
+├── src/                            # Worker 入口、路由与共享逻辑
+├── public/                         # Worker 静态资源目录
 │   ├── _headers                    # 响应头与缓存策略
 │   ├── api-doc/                    # API 文档页面
 │   └── Bing_zh-CN_all.json         # 供 Functions 读取的公开数据副本
@@ -84,9 +84,9 @@ GitHub Actions 只负责更新数据，不直接调用 Wrangler 或 Cloudflare A
 - 最新 N 条 JSON：`https://<你的域名>/api/latest/10`
 - 最新图片直链：`https://<你的域名>/img/latest?res=hd`
 
-## 🧪 本地预览（Cloudflare Pages）
+## 🧪 本地预览（Cloudflare Workers）
 
-可在本地直接预览接近 Cloudflare Pages 线上环境的效果（含 `functions/` 路由）。
+可通过 Wrangler 在本地预览 Cloudflare Workers 运行环境，包括 Worker 路由和静态资源。
 
 ### 1. 环境要求
 

@@ -21,6 +21,25 @@ const UPSTREAM_HEADERS_TO_STRIP = [
   "access-control-expose-headers",
 ];
 
+export function parseImageRedirect(requestUrl) {
+  const value = requestUrl.searchParams.get("redirect");
+  if (value === null || value === "" || value.toLowerCase() === "false") {
+    return { redirect: false };
+  }
+  if (value.toLowerCase() === "true") {
+    return { redirect: true };
+  }
+  return { error: "Invalid redirect parameter, expected true or false." };
+}
+
+export function redirectToBingImage(targetUrl, enddate) {
+  const headers = new Headers(IMAGE_HEADERS);
+  headers.set("location", targetUrl);
+  headers.set("x-bing-image-date", enddate);
+  headers.set("x-bing-image-url", targetUrl);
+  return new Response(null, { status: 302, headers });
+}
+
 export function imageJsonError(message, status) {
   return new Response(`${JSON.stringify({ error: message }, null, 2)}\n`, {
     status,

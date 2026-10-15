@@ -3,7 +3,9 @@ import {
   buildBingTargetUrl,
   IMAGE_HEADERS,
   imageJsonError,
+  parseImageRedirect,
   proxyBingImage,
+  redirectToBingImage,
   withImageDateHeaders,
 } from "../../lib/img-api.js";
 
@@ -48,9 +50,17 @@ export async function onRequest(context) {
   }
 
   const requestUrl = new URL(context.request.url);
+  const redirectOption = parseImageRedirect(requestUrl);
+  if (redirectOption.error) {
+    return imageJsonError(redirectOption.error, 400);
+  }
   const target = buildBingTargetUrl(latestImage, latestImage.enddate, requestUrl);
   if (target.error) {
     return imageJsonError(target.error, 400);
+  }
+
+  if (redirectOption.redirect) {
+    return redirectToBingImage(target.url, image.enddate);
   }
 
   const imageResponse = await proxyBingImage(context, target.url);

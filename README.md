@@ -1,3 +1,4 @@
+
 # 📸 bing-wallpaper-archive
 
 本项目归档 2016-03-05 至今的必应每日壁纸数据，并提供 Cloudflare Workers 网站、JSON API、图片直链接口和批量下载能力。
@@ -23,6 +24,7 @@
 注：
 
 - 20190510之前的壁纸只提供下载1080P分辨率
+
 ---
 
 ## 📦 项目结构
@@ -82,7 +84,8 @@ GitHub Actions 只负责更新数据，不直接调用 Wrangler 或 Cloudflare A
 - API 文档：`https://<你的域名>/api-doc/`
 - 最新一条 JSON：`https://<你的域名>/api/latest`
 - 最新 N 条 JSON：`https://<你的域名>/api/latest/10`
-- 最新图片直链：`https://<你的域名>/img/latest?res=hd`
+- 最新图片直链（Worker 代理）：`https://<你的域名>/img/latest?res=hd&redirect=false`
+- 最新图片直链（302 跳转至 Bing 官方原图）：`https://<你的域名>/img/latest?res=hd&redirect=true`
 
 ## 🧪 本地预览（Cloudflare Workers）
 
@@ -146,12 +149,13 @@ https://cdn.jsdelivr.net/gh/LetterY-idv/Bing-Wallpaper/2025/all.json
 https://<你的域名>/api-doc/
 ```
 
-
 ## ⚠️ 注意事项
 
 - 可能存在有些图片无法下载的现象，请自行测试。
 - 通过git下载的bat文件可能存在换行符是`LF`的情况，需要手动调整，或通过本项目的release进行下载。
 
 ## 💖 鸣谢
+
+本项目 fork 自 [Zhu-junwei/bing-wallpaper-archive](https://github.com/Zhu-junwei/bing-wallpaper-archive)
 
 项目前期初始数据来自[flow2000/bing-wallpaper-api](https://github.com/flow2000/bing-wallpaper-api)

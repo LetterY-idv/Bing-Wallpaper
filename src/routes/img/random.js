@@ -4,7 +4,9 @@ import {
   buildBingTargetUrl,
   IMAGE_HEADERS,
   imageJsonError,
+  parseImageRedirect,
   proxyBingImage,
+  redirectToBingImage,
   withImageDateHeaders,
 } from "../../lib/img-api.js";
 
@@ -52,6 +54,10 @@ function withShortCache(response) {
 
 export async function onRequest(context) {
   const requestUrl = new URL(context.request.url);
+  const redirectOption = parseImageRedirect(requestUrl);
+  if (redirectOption.error) {
+    return withShortCache(imageJsonError(redirectOption.error, 400));
+  }
   const limitLegacyImages = shouldLimitLegacyImages(requestUrl);
   if (context.request.method === "OPTIONS") {
     return withShortCache(new Response(null, { status: 204, headers: IMAGE_HEADERS }));
@@ -83,6 +89,10 @@ export async function onRequest(context) {
   const target = buildBingTargetUrl(randomImage, randomImage.enddate, requestUrl);
   if (target.error) {
     return withShortCache(imageJsonError(target.error, 400));
+  }
+
+  if (redirectOption.redirect) {
+    return withShortCache(redirectToBingImage(target.url, randomImage.enddate));
   }
 
   const imageResponse = await proxyBingImage(context, target.url);

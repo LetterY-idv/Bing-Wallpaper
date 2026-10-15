@@ -322,11 +322,13 @@
         imgUhd: origin + "/img/" + datePath + "?res=uhd",
         imgCustom: origin + "/img/" + datePath + "?w=2560&h=1440",
         imgLatest: origin + "/img/latest",
-        imgLatestHd: origin + "/img/latest?res=hd",
+        imgLatestHd: origin + "/img/latest?res=hd&redirect=false",
+        imgLatestRedirect: origin + "/img/latest?res=hd&redirect=true",
         imgLatestUhd: origin + "/img/latest?res=uhd",
         imgLatestCustom: origin + "/img/latest?w=2560&h=1440",
         imgRandom: origin + "/img/random",
-        imgRandomHd: origin + "/img/random?res=hd",
+        imgRandomHd: origin + "/img/random?res=hd&redirect=false",
+        imgRandomRedirect: origin + "/img/random?res=hd&redirect=true",
         imgRandomUhd: origin + "/img/random?res=uhd",
         imgRandomCustom: origin + "/img/random?w=2560&h=1440"
       };
@@ -347,12 +349,14 @@
       renderEndpointLinks("urlImgLatest", [
         endpoints.imgLatest,
         endpoints.imgLatestHd,
+        endpoints.imgLatestRedirect,
         endpoints.imgLatestUhd,
         endpoints.imgLatestCustom
       ]);
       renderEndpointLinks("urlImgRandom", [
         endpoints.imgRandom,
         endpoints.imgRandomHd,
+        endpoints.imgRandomRedirect,
         endpoints.imgRandomUhd,
         endpoints.imgRandomCustom
       ]);

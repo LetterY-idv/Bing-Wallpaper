@@ -1,12 +1,11 @@
 
-
 # 📸 bing-wallpaper-archive
 
 This project archives Bing daily wallpaper data from 2016-03-05 to the present, and provides a Cloudflare Workers website, JSON API, direct image link interface, and batch download capabilities.
 
-Total images: **3809**
+Total images: **3878**
 
-Latest data date: **20260807**
+Latest data date: **20261015**
 
 ## 🚀 Features
 
@@ -25,6 +24,7 @@ Latest data date: **20260807**
 Note:
 
 - Wallpapers prior to 20190510 only provide 1080P resolution for download.
+
 ---
 
 ## 📦 Project Structure
@@ -84,7 +84,8 @@ GitHub Actions only updates the dataset. It does not invoke Wrangler or the Clou
 - API documentation: `https://<your-domain>/api-doc/`
 - Latest JSON record: `https://<your-domain>/api/latest`
 - Latest N JSON records: `https://<your-domain>/api/latest/10`
-- Latest image endpoint: `https://<your-domain>/img/latest?res=hd`
+- Latest image endpoint (Worker proxy): `https://<your-domain>/img/latest?res=hd&redirect=false`
+- Latest image endpoint (302 redirect to the official Bing image): `https://<your-domain>/img/latest?res=hd&redirect=true`
 
 ## 🧪 Local Preview (Cloudflare Workers)
 
@@ -154,5 +155,7 @@ https://<your-domain>/api-doc/
 - BAT files downloaded via Git might have `LF` line endings, which may require manual adjustment. Alternatively, download directly from the project's releases.
 
 ## 💖 Acknowledgments
+
+This project is forked from [Zhu-junwei/bing-wallpaper-archive](https://github.com/Zhu-junwei/bing-wallpaper-archive).
 
 The initial dataset for this project was sourced from [flow2000/bing-wallpaper-api](https://github.com/flow2000/bing-wallpaper-api).

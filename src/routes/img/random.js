@@ -10,8 +10,7 @@ import {
   withImageDateHeaders,
 } from "../../lib/img-api.js";
 
-const RANDOM_IMAGE_CACHE_CONTROL =
-  "public, max-age=180, s-maxage=300, stale-while-revalidate=600";
+const RANDOM_IMAGE_CACHE_CONTROL = "no-store, no-cache, must-revalidate, max-age=0";
 
 function shouldLimitLegacyImages(requestUrl) {
   const searchParams = requestUrl.searchParams;

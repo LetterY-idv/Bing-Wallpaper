@@ -233,6 +233,7 @@
       <ul class="path-list">
         <li><code>res</code> 支持：<code>hd</code>、<code>uhd</code></li>
         <li>自定义分辨率使用：<code>w</code> + <code>h</code>，例如 <code>?w=2560&h=1440</code></li>
+        <li><code>redirect</code> 支持：<code>false</code>（默认，由 Worker 代理返回图片）或 <code>true</code>（重定向至 Bing 直链），例如：<code>?res=uhd&redirect=true</code></li>
         <li><code>2019-05-10</code> 之前的图片仅返回 1080P，忽略 <code>res/w/h</code></li>
       </ul>
     </section>

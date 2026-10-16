@@ -60,7 +60,7 @@ export async function onRequest(context) {
   }
 
   if (redirectOption.redirect) {
-    return redirectToBingImage(target.url, image.enddate);
+    return redirectToBingImage(target.url, latestImage.enddate);
   }
 
   const imageResponse = await proxyBingImage(context, target.url);

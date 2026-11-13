@@ -3,9 +3,9 @@
 
 This project archives Bing daily wallpaper data from 2016-03-05 to the present, and provides a Cloudflare Workers website, JSON API, direct image link interface, and batch download capabilities.
 
-Total images: **3907**
+Total images: **3908**
 
-Latest data date: **20261113**
+Latest data date: **20261114**
 
 ## 🚀 Features
 
